@@ -145,6 +145,9 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
     Route::put('/tickets/{id}/acknowledge','App\Http\Controllers\TicketsController@acknowledge')->name('tickets.acknowledge');
     Route::put('/tickets/{id}/escalate','App\Http\Controllers\TicketsController@escalate')->name('tickets.escalate');
 
+    // charts controller
+    Route::get('chart','App\Http\Controllers\ChartController@index');
+
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('routes', 'App\Http\Controllers\AdminDetailsController@listRoutes');
     Route::get('active-users', 'App\Http\Controllers\AdminDetailsController@activeUsers');
