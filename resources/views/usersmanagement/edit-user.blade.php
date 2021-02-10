@@ -1,12 +1,16 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {!! trans('usersmanagement.create-new-user') !!}
+    Edit User {{ $user->name}}
 @endsection
 
 @section('template_linked_css')
     <link href="{{ asset('assets/css/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
-
+    <style>
+        .pw-change-container{
+            display: none;
+        }
+    </style>
 @endsection
 
 @section('content')

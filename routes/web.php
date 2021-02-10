@@ -151,6 +151,9 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
     // get tickets based on a category
     Route::get('/ticket_by_cat/{id}/{name}','App\Http\Controllers\UserController@getCategory');
 
+    // get tickets based on status
+    Route::get('/ticket_by_status/{id}/{name}','App\Http\Controllers\UserController@getTicketStatus')->name('ticket_by_status');
+
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('routes', 'App\Http\Controllers\AdminDetailsController@listRoutes');
     Route::get('active-users', 'App\Http\Controllers\AdminDetailsController@activeUsers');

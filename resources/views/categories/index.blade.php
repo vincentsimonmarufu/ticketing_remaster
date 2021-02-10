@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {!! trans('usersmanagement.showing-all-users') !!}
+    Showing all Categories
 @endsection
 
 @section('template_linked_css')

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-
+    Resolve Ticket
 @endsection
 
 @section('template_linked_css')
@@ -10,7 +10,7 @@
     <link href="{{ asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('plugins/animate/animate.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="plugins/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2.min.css')}}">
 
 @endsection
 

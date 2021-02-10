@@ -14,7 +14,7 @@
                             @if (Auth::user()->id == $user->id)
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-12 col-sm-4 col-md-3 profile-sidebar text-white rounded-left-sm-up">
+                                    <div class="col-12 col-sm-4 col-md-3 profile-sidebar text-white rounded-left-sm-up p-4">
                                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                             <a class="nav-link active" data-toggle="pill" href=".edit-profile-tab" role="tab" aria-controls="edit-profile-tab" aria-selected="true">
                                                 {{ trans('profile.editProfileTitle') }}
@@ -27,7 +27,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-8 col-md-9">
+                                    <div class="col-12 col-sm-8 col-md-9 py-2">
                                         <div class="tab-content" id="v-pills-tabContent">
                                             <div class="tab-pane fade show active edit-profile-tab" role="tabpanel" aria-labelledby="edit-profile-tab">
                                                 <div class="row mb-1">

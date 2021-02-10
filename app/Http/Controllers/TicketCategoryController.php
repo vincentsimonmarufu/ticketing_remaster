@@ -90,7 +90,14 @@ class TicketCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|unique:ticket_categories',  
+        ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput();
+        }
+        
         $category = TicketCategory::findOrFail($id);
         $category->name = $request->name;
         $category->slug = Str::slug($request->slug,'-');

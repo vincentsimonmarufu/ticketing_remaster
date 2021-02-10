@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-
+    Edit Category
 @endsection
 
 @section('template_linked_css')
@@ -46,7 +46,12 @@
                     {!! csrf_field() !!}
                     <div class="form-group mb-4" >
                         <label for="cat_name">Category Name</label>
-                        <input type="text" class="form-control" value="{{ $category->name }}" id="cat-name" name="name">   
+                        <input type="text" class="form-control @error('name') is-invalid @error" value="{{ $category->name }}" id="cat-name" name="name">
+                        @error('name')
+                        <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @error   
                     </div> 
                     <button type="button" data-toggle = 'modal' data-target = '#confirmSave' data-title = 'Save Changes' data-message = 'Are you sure you want to save changes' class="btn btn-primary mb-2 mr-2 btn-rounded mt-3">Update Category</button>
                     {!! Form::close() !!}
