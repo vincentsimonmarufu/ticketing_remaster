@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Ticket;
+use App\Models\TicketCategory;
 
 use Auth;
 
@@ -24,11 +26,29 @@ class UserController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $categories = TicketCategory::all();
 
         if ($user->isAdmin()) {
-            return view('pages.admin.home');
+
+            $tickets = Ticket::select(\DB::raw("COUNT(*) as count"))
+                    ->whereYear('created_at', date('Y'))
+                    ->groupBy(\DB::raw("Month(created_at)"))
+                    ->pluck('count');
+
+            return view('pages.admin.home', compact('tickets','categories'));
         }
 
         return view('pages.user.home');
+    }
+
+    public function getCategory($id,$name){
+        $category_id = $id;
+        $category_name = $name;
+
+        $tickets_by = Ticket::where('category',$category_id)
+                    ->latest()
+                    ->get();
+
+        return view('categories.tickets.index',compact('category_name','tickets_by'));
     }
 }

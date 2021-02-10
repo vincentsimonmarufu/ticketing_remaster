@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TicketCategory;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class TicketCategoryController extends Controller
 {
@@ -40,6 +41,14 @@ class TicketCategoryController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|unique:ticket_categories',  
+        ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput();
+        }
+
         TicketCategory::create([
             'name' => $request['name'],
             'slug' => Str::slug($request['name'],'-')

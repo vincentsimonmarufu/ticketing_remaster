@@ -148,6 +148,9 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
     // charts controller
     Route::get('chart','App\Http\Controllers\ChartController@index');
 
+    // get tickets based on a category
+    Route::get('/ticket_by_cat/{id}/{name}','App\Http\Controllers\UserController@getCategory');
+
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('routes', 'App\Http\Controllers\AdminDetailsController@listRoutes');
     Route::get('active-users', 'App\Http\Controllers\AdminDetailsController@activeUsers');

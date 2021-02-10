@@ -24,7 +24,7 @@ class CreateTicketsTable extends Migration
             $table->integer('resolved_status')->default(0);
             $table->string('resolved_how')->nullable();
             $table->string('resolved_by')->nullable();
-            $table->string('category')->nullable();
+            $table->integer('category')->nullable();
 
             // foreign key constraits
             $table->unsignedBigInteger('user_id')->nullable();

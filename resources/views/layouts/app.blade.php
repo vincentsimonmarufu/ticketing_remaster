@@ -69,7 +69,7 @@
 
                 <div class="footer-wrapper">
                     <div class="footer-section f-section-1">
-                        <p class="">Copyright © <?php  echo date('Y'); ?>. All rights reserved.</p>
+                        <p class="">Copyright © <?php  echo date('Y'); ?> Powered by Whelson IT. All rights reserved.</p>
                     </div>
                     <div class="footer-section f-section-2">
 
