@@ -7,20 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TicketCreatedNotification extends Notification
+class TicketResolverNotification extends Notification
 {
     use Queueable;
-
-    private $created;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($created)
+    public function __construct()
     {
-        $this->created = $created;
+        //
     }
 
     /**
@@ -31,7 +29,7 @@ class TicketCreatedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail'];
     }
 
     /**
@@ -43,16 +41,9 @@ class TicketCreatedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->greeting($this->created['greeting'])
-                    ->subject('A ticket has been opened')
-                    ->line($this->created['body'])
-                    ->line($this->created['name'])
-                    ->line($this->created['email'])
-                    ->line($this->created['contact'])
-                    ->line($this->created['subject'])
-                    ->line($this->created['description'])
-                    ->action($this->created['actionText'],$this->created['actionUrl'])
-                    ->line($this->created['thanks']);
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
@@ -65,12 +56,6 @@ class TicketCreatedNotification extends Notification
     {
         return [
             //
-        ];
-    }
-
-    public function toDatabase($notifiable){
-        return [
-            'data' => $this->details['body']
         ];
     }
 }

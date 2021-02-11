@@ -8,6 +8,8 @@ use App\Models\Ticket;
 use App\Models\TicketCategory;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\TicketCreatedNotification;
+use App\Notifications\TicketOpenedNotification;
+use App\Notifications\TicketResolvedNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Models\User;
 use Keygen;
@@ -72,6 +74,40 @@ class TicketsController extends Controller
         ]);
         $ticket->save();
 
+        // notifying the user when a ticket is created
+        $open = [
+            'greeting' => 'Good day '.$ticket->name,
+            'body' => 'Your issue has been submitted with reference no: '.$ticket->key.' , You will be notified once it is resolved',
+            'actionText' => 'Follow Up on Issue',
+            'actionUrl' => 'http://127.0.0.1:8000/ticket/follow',
+            'thanks' => 'Thank you for using Whelson Ticketing System'
+        ];
+
+        Notification::route('mail',$ticket->email)
+                        ->notify(new TicketOpenedNotification($open));
+
+        // notifying respective admins
+        $users = User::all();
+        
+        foreach($users as $user){
+            if($user->isAdmin()){
+                $created = [
+                    'greeting'=> 'Good day IT, '.$ticket->name.' has opened a ticket.',
+                    'body'=>$ticket->name.' has opened ticket with reference no: '.$ticket->key,
+                    'name'=>$ticket->name,
+                    'email'=>$ticket->email,
+                    'contact'=>$ticket->contactable,
+                    'subject'=>$ticket->subject,
+                    'description'=>$ticket->description,
+                    'actionText'=>'View Details',
+                    'actionUrl'=>'http://127.0.0.1:8000/tickets',
+                    'thanks'=>'Thank you for using Whelson Ticketing System '
+
+                ];
+                $user->notify(new TicketCreatedNotification($created));
+            }
+        }
+
         if(Auth::check()){
             return redirect('tickets');
         }
@@ -122,12 +158,43 @@ class TicketsController extends Controller
         if($ticket->resolved_status === 2){
             return back()->with('message','The ticket has already been resolved !');
         }else{
+            $validator = Validator::make($request->all(),[
+                'category' => 'required',
+                'resolved_how' => 'required'
+            ]);
+
+            if($validator->fails()){
+                return back()->withErrors($validator)->withInput();
+            }
+
             $ticket->resolved_how = $request->resolved_how;
             $ticket->resolved_by = $user->name;
             $ticket->category = $request->category;
             $ticket->resolved_status = 2;
             $ticket->user_id = $user->id;
             $ticket->save();
+
+            // notifying the user when a ticket is resolved
+            $resolved = [
+                'greeting' => 'Good day '.$ticket->name,
+                'subject' => 'Your issue has been resolved',
+                'body' => 'Your issue with reference no: '.$ticket->key.' has been resolved with the following comments',
+                'comment' =>$ticket->resolved_how,
+                'actionText'=>'View Details',
+                'actionUrl' => 'http://127.0.0.1:8000/ticket/follow',
+                'thanks' => 'Thank you for using Whelson Ticketing System'
+            ];
+
+            Notification::route('mail',$ticket->email)
+                            ->notify(new TicketResolvedNotification($resolved));
+
+            // notifying respective admin when ticket is resolved
+            $users = User::all();
+            foreach($users as $user){
+                if($user->isAdmin()){
+                    // code here
+                }
+            }
         }
 
         return redirect('tickets');

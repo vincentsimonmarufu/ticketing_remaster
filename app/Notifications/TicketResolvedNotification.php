@@ -7,20 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TicketCreatedNotification extends Notification
+class TicketResolvedNotification extends Notification
 {
     use Queueable;
 
-    private $created;
+    private $resolved;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($created)
+    public function __construct($resolved)
     {
-        $this->created = $created;
+        $this->resolved = $resolved;
     }
 
     /**
@@ -31,7 +31,7 @@ class TicketCreatedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail'];
     }
 
     /**
@@ -43,16 +43,12 @@ class TicketCreatedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->greeting($this->created['greeting'])
-                    ->subject('A ticket has been opened')
-                    ->line($this->created['body'])
-                    ->line($this->created['name'])
-                    ->line($this->created['email'])
-                    ->line($this->created['contact'])
-                    ->line($this->created['subject'])
-                    ->line($this->created['description'])
-                    ->action($this->created['actionText'],$this->created['actionUrl'])
-                    ->line($this->created['thanks']);
+                    ->greeting($this->resolved['greeting'])
+                    ->subject($this->resolved['subject'])
+                    ->line($this->resolved['body'])
+                    ->line($this->resolved['comment'])
+                    ->action($this->resolved['actionText'], $this->resolved['actionUrl'])
+                    ->line($this->resolved['thanks']);
     }
 
     /**
@@ -65,12 +61,6 @@ class TicketCreatedNotification extends Notification
     {
         return [
             //
-        ];
-    }
-
-    public function toDatabase($notifiable){
-        return [
-            'data' => $this->details['body']
         ];
     }
 }

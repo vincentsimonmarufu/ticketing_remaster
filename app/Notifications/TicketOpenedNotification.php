@@ -7,20 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TicketCreatedNotification extends Notification
+class TicketOpenedNotification extends Notification
 {
     use Queueable;
 
-    private $created;
+    private $open;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($created)
+    public function __construct($open)
     {
-        $this->created = $created;
+        $this->open = $open;
     }
 
     /**
@@ -31,7 +31,7 @@ class TicketCreatedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail'];
     }
 
     /**
@@ -43,16 +43,11 @@ class TicketCreatedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->greeting($this->created['greeting'])
-                    ->subject('A ticket has been opened')
-                    ->line($this->created['body'])
-                    ->line($this->created['name'])
-                    ->line($this->created['email'])
-                    ->line($this->created['contact'])
-                    ->line($this->created['subject'])
-                    ->line($this->created['description'])
-                    ->action($this->created['actionText'],$this->created['actionUrl'])
-                    ->line($this->created['thanks']);
+                    ->greeting($this->open['greeting'])
+                    ->subject('Your issue has been submitted')
+                    ->line($this->open['body'])
+                    ->action($this->open['actionText'], $this->open['actionUrl'])
+                    ->line($this->open['thanks']);
     }
 
     /**
@@ -65,12 +60,6 @@ class TicketCreatedNotification extends Notification
     {
         return [
             //
-        ];
-    }
-
-    public function toDatabase($notifiable){
-        return [
-            'data' => $this->details['body']
         ];
     }
 }
