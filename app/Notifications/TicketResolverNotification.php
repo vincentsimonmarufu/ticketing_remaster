@@ -11,14 +11,16 @@ class TicketResolverNotification extends Notification
 {
     use Queueable;
 
+    private $resolver;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($resolver)
     {
-        //
+        $this->resolver = $resolver;
     }
 
     /**
