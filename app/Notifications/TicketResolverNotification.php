@@ -31,7 +31,7 @@ class TicketResolverNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail','database'];
     }
 
     /**
@@ -43,9 +43,12 @@ class TicketResolverNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->greeting($this->resolver['greeting'])
+                    ->subject('A ticket has been resolved')
+                    ->line($this->resolver['body'])
+                    ->line($this->resolver['explanation'])
+                    ->action($this->resolver['actionText'],$this->resolver['actionUrl'])
+                    ->line($this->resolver['thanks']);
     }
 
     /**
@@ -58,6 +61,12 @@ class TicketResolverNotification extends Notification
     {
         return [
             //
+        ];
+    }
+
+    public function toDatabase($notifiable){
+        return [
+            'data' => $this->resolver['body']
         ];
     }
 }

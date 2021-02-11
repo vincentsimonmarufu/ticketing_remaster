@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-
+    Issue Ticket
 @endsection
 
 @section('template_linked_css')

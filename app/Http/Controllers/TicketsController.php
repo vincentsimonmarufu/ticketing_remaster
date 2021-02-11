@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Notifications\TicketCreatedNotification;
 use App\Notifications\TicketOpenedNotification;
 use App\Notifications\TicketResolvedNotification;
+use App\Notifications\TicketResolverNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Models\User;
 use Keygen;
@@ -94,11 +95,11 @@ class TicketsController extends Controller
                 $created = [
                     'greeting'=> 'Good day IT, '.$ticket->name.' has opened a ticket.',
                     'body'=>$ticket->name.' has opened ticket with reference no: '.$ticket->key,
-                    'name'=>$ticket->name,
-                    'email'=>$ticket->email,
-                    'contact'=>$ticket->contactable,
-                    'subject'=>$ticket->subject,
-                    'description'=>$ticket->description,
+                    'name'=>'Name: '.$ticket->name,
+                    'email'=>'Email: '.$ticket->email,
+                    'contact'=>'Contactable'.$ticket->contactable,
+                    'subject'=>'Subject: '.$ticket->subject,
+                    'description'=>'Description: '.$ticket->description,
                     'actionText'=>'View Details',
                     'actionUrl'=>'http://127.0.0.1:8000/tickets',
                     'thanks'=>'Thank you for using Whelson Ticketing System '
@@ -179,7 +180,7 @@ class TicketsController extends Controller
                 'greeting' => 'Good day '.$ticket->name,
                 'subject' => 'Your issue has been resolved',
                 'body' => 'Your issue with reference no: '.$ticket->key.' has been resolved with the following comments',
-                'comment' =>$ticket->resolved_how,
+                'comment' =>'Comments: '.$ticket->resolved_how,
                 'actionText'=>'View Details',
                 'actionUrl' => 'http://127.0.0.1:8000/ticket/follow',
                 'thanks' => 'Thank you for using Whelson Ticketing System'
@@ -192,7 +193,16 @@ class TicketsController extends Controller
             $users = User::all();
             foreach($users as $user){
                 if($user->isAdmin()){
-                    // code here
+                    $resolver = [
+                        'greeting' => 'Good day IT, ',
+                        'body' => $user->name.' has attended to issue with reference no '.$ticket->key,
+                        'explanation'=> 'Explanation: '.$ticket->resolved_how,
+                        'actionText' => 'View Details',
+                        'actionUrl' => 'http://127.0.0.1:8000/tickets',
+                        'thanks' => 'Thank you for using Whelson Ticketing System'
+                    ];
+
+                    $user->notify(new TicketResolverNotification($resolver));
                 }
             }
         }
