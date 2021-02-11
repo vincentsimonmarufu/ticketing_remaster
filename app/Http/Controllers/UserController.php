@@ -34,16 +34,16 @@ class UserController extends Controller
             $tickets_total_count = $tickets_total->count();
 
             $unattended_count = Ticket::where('resolved_status',0)->count();
-            $unattended_percent = ($unattended_count / $tickets_total_count ) * 100;
+            $unattended_percent = number_format(($unattended_count / $tickets_total_count ) * 100,2,'.','');
 
             $pending_count = Ticket::where('resolved_status',1)->count();
-            $pending_percent = ($pending_count / $tickets_total_count ) * 100;
+            $pending_percent = number_format(($pending_count / $tickets_total_count ) * 100,2,'.','');
 
             $resolved_count = Ticket::where('resolved_status',2)->count();
-            $resolved_percent = ($resolved_count / $tickets_total_count ) * 100;
+            $resolved_percent = number_format(($resolved_count / $tickets_total_count ) * 100,2,'.','');
 
             $escalated_count = Ticket::where('resolved_status',3)->count();
-            $escalated_percent = ($escalated_count / $tickets_total_count ) * 100;
+            $escalated_percent = number_format(($escalated_count / $tickets_total_count ) * 100,2,'.','');
 
             $tickets = Ticket::select(\DB::raw("COUNT(*) as count"))
                     ->whereYear('created_at', date('Y'))

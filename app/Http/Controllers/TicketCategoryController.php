@@ -53,7 +53,7 @@ class TicketCategoryController extends Controller
             'name' => $request['name'],
             'slug' => Str::slug($request['name'],'-')
         ]);
-        return back();
+        return back()->with('success','A category has been created successfully.');
     }
 
     /**
@@ -103,7 +103,7 @@ class TicketCategoryController extends Controller
         $category->slug = Str::slug($request->slug,'-');
         $category->save();
 
-        return redirect('categories');
+        return redirect('categories')->with('success','Category has been updated successfully.');
     }
 
     /**
@@ -118,6 +118,6 @@ class TicketCategoryController extends Controller
         $category = TicketCategory::findOrFail($id);
         $category->delete();
 
-        return redirect('categories');
+        return redirect('categories')->with('danger','Category has been deleted successfully');
     }
 }

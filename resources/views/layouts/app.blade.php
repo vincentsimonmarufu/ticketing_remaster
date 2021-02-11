@@ -63,6 +63,9 @@
                 <div class="layout-px-spacing">
 
                     <div class="row layout-top-spacing">
+                        <div class="container">
+                            @include('partials.flash-message')
+                        </div>
                         @yield('content')
                     </div>
                 </div>

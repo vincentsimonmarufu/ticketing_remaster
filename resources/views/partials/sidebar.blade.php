@@ -110,9 +110,6 @@
                     <a href="{{ url('/routes')}}"> Routing Details </a>
                 </li>
                 <li>
-                    <a href="{{ url('/active-users')}}"> Active Users </a>
-                </li>
-                <li>
                     <a href="{{ url('/blocker')}}"> Blocker </a>
                 </li>
             </ul>

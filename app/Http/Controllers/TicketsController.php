@@ -109,8 +109,9 @@ class TicketsController extends Controller
             }
         }
 
-        if(Auth::check()){
-            return redirect('tickets');
+        if(Auth::check())
+        {
+            return redirect('tickets')->with('success','Your issue has been submitted and assigned a reference no: '.$ticket->key);
         }
 
         return redirect('/');
@@ -207,7 +208,7 @@ class TicketsController extends Controller
             }
         }
 
-        return redirect('tickets');
+        return redirect('tickets')->with('success','You have successfully resolved '.$ticket->key);
 
     }
 
@@ -230,10 +231,11 @@ class TicketsController extends Controller
         // check if ticket is resolved
         if($ticket->resolved_status === 2)
         {
-            return back()->with('message','Ticket cannot be Acknowledged!');
-        }elseif($ticket->resolved_status === 1)
+            return back()->with('warning','Ticket has already been Resolved!');
+        }
+        elseif($ticket->resolved_status === 1)
         {
-            return back()->with('message','ticket has already been Acknowledged!');
+            return back()->with('warning','ticket has already been Acknowledged!');
         }
         else{
             $ticket->resolved_by = $user->name;
@@ -241,7 +243,7 @@ class TicketsController extends Controller
             $ticket->user_id = $user_id;
             $ticket->save();
 
-            return back();
+            return back()->with('info','You have acknowledged a ticket successfully');
         }
     }
 
@@ -266,10 +268,11 @@ class TicketsController extends Controller
         // check if ticket is resolved
         if($ticket->resolved_status === 2)
         {
-            return back()->with('message','Ticket cannot be Escalated!');
-        }elseif($ticket->resolved_status === 3)
+            return back()->with('warning','Ticket has already been Resolved!');
+        }
+        elseif($ticket->resolved_status === 3)
         {
-            return back()->with('message','ticket has already been Escalated!');
+            return back()->with('warning','Ticket has already been Escalated!');
         }
         else{
             $ticket->resolved_by = $user->name;
@@ -277,7 +280,7 @@ class TicketsController extends Controller
             $ticket->user_id = $user_id;
             $ticket->save();
 
-            return back();
+            return back()->with('success','You have escalated a ticket.');
         }
     }
 }
