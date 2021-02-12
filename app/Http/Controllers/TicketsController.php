@@ -102,7 +102,8 @@ class TicketsController extends Controller
                     'description'=>'Description: '.$ticket->description,
                     'actionText'=>'View Details',
                     'actionUrl'=>'http://127.0.0.1:8000/tickets',
-                    'thanks'=>'Thank you for using Whelson Ticketing System '
+                    'thanks'=>'Thank you for using Whelson Ticketing System ',
+                    'message'=>'A ticket has been opened by '.$ticket->name
 
                 ];
                 $user->notify(new TicketCreatedNotification($created));
@@ -200,7 +201,8 @@ class TicketsController extends Controller
                         'explanation'=> 'Explanation: '.$ticket->resolved_how,
                         'actionText' => 'View Details',
                         'actionUrl' => 'http://127.0.0.1:8000/tickets',
-                        'thanks' => 'Thank you for using Whelson Ticketing System'
+                        'thanks' => 'Thank you for using Whelson Ticketing System',
+                        'message'=>'A ticket has been opened by '.$ticket->name
                     ];
 
                     $user->notify(new TicketResolverNotification($resolver));

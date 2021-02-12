@@ -13,6 +13,14 @@
 
 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
     <div class="widget-content widget-content-area br-6">
+        <div class="widget-header">
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                    <h5 class="ml-2" style="margin: 0;">Showing All Users</h5>
+
+                </div>
+            </div>
+        </div>
         <div class="table-responsive mb-4 mt-4">
             <table id="zero-config" class="table table-hover" style="width:100%">
                 <thead>

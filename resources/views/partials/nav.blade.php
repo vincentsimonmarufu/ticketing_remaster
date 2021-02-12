@@ -4,14 +4,12 @@
 
         {{-- left side of navigation --}}
         <ul class="navbar-item theme-brand flex-row  text-center">
-            <li class="nav-item theme-logo">
+            <li class="nav-item" style="#fff;opacity:1;">
                 <a href="{{ url('/home') }}">
-                    <img src="{{ asset('assets/img/90x90.jpg') }}" class="navbar-logo" alt="logo">
+                    <img src="{{ asset('assets/img/top_logo_small.png') }}" class="navbar-logo" alt="logo">
                 </a>
             </li>
-            <li class="nav-item theme-text">
-                <a href="{{ url('/home') }}" class="nav-link"> WHELSON </a>
-            </li>
+            
         </ul>
 
         {{-- right side of navigation --}}
@@ -20,6 +18,11 @@
             @guest
 
             @else 
+                <li class="nav-item dropdown language-dropdown">
+                    <a href="{{ url('/') }}" class="nav-link dropdown-toggle" id="language-dropdown">
+                    <span style="color:#e0e6ed !important;font-size:18.5px;">WHELSON |</span>
+                    </a>
+                </li>
 
                 <li class="nav-item dropdown message-dropdown">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="messageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -44,40 +47,6 @@
 
                                 </div>
                             </a>
-                            <a class="dropdown-item">
-                                <div class="">
-
-                                    <div class="media">
-                                        <div class="user-img">
-                                            <img class="usr-img rounded-circle" src="{{ asset('assets/img/90x90.jpg') }}" alt="profile">
-                                        </div>
-                                        <div class="media-body">
-                                            <div class="">
-                                                <h5 class="usr-name">Daisy Anderson</h5>
-                                                <p class="msg-title">ACCOUNT UPDATE</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </a>
-                            <a class="dropdown-item">
-                                <div class="">
-
-                                    <div class="media">
-                                        <div class="user-img">
-                                            <img class="usr-img rounded-circle" src="{{ asset('assets/img/90x90.jpg') }}" alt="profile">
-                                        </div>
-                                        <div class="media-body">
-                                            <div class="">
-                                                <h5 class="usr-name">Oscar Garner</h5>
-                                                <p class="msg-title">ACCOUNT UPDATE</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </a>
                         </div>
                     </div>
                 </li>
@@ -89,32 +58,19 @@
                     <div class="dropdown-menu position-absolute" aria-labelledby="notificationDropdown">
                         <div class="notification-scroll">
 
-                            <div class="dropdown-item">
-                                <div class="media">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                                    <div class="media-body">
-                                        <div class="notification-para"><span class="user-name">Shaun Park</span> likes your photo.</div>
+                            @forelse (auth()->user()->unreadNotifications as $notification)
+                                <div class="dropdown-item">
+                                    <div class="media">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                        <div class="media-body">
+                                        <div class="notification-para">{{ $notification->type}}</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @empty
+                                <a href="">No unread notifications</a>
+                            @endforelse
 
-                            <div class="dropdown-item">
-                                <div class="media">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-                                    <div class="media-body">
-                                        <div class="notification-para"><span class="user-name">Kelly Young</span> shared your post</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="dropdown-item">
-                                <div class="media">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
-                                    <div class="media-body">
-                                        <div class="notification-para"><span class="user-name">Kelly Young</span> mentioned you in comment.</div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </li>
@@ -158,7 +114,7 @@
             <li>
                 <div class="page-header">
                     <div class="page-title">
-                        <h3>Blank Page</h3>
+                        <h3>{{ Auth::user()->name}}</h3>
                     </div>
                 </div>
             </li>

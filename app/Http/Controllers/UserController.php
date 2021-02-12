@@ -34,16 +34,41 @@ class UserController extends Controller
             $tickets_total_count = $tickets_total->count();
 
             $unattended_count = Ticket::where('resolved_status',0)->count();
-            $unattended_percent = number_format(($unattended_count / $tickets_total_count ) * 100,2,'.','');
-
+            if($tickets_total_count != 0)
+            {
+                $unattended_percent = number_format(($unattended_count / $tickets_total_count ) * 100,2,'.','');
+            }
+            else{
+                $unattended_percent = 0;
+            }
+            
             $pending_count = Ticket::where('resolved_status',1)->count();
-            $pending_percent = number_format(($pending_count / $tickets_total_count ) * 100,2,'.','');
+            if($tickets_total_count != 0)
+            {
+                $pending_percent = number_format(($pending_count / $tickets_total_count ) * 100,2,'.','');
+            }
+            else{
+                $pending_percent = 0;
+            }
+            
 
             $resolved_count = Ticket::where('resolved_status',2)->count();
-            $resolved_percent = number_format(($resolved_count / $tickets_total_count ) * 100,2,'.','');
+            if($tickets_total_count != 0)
+            {
+                $resolved_percent = number_format(($resolved_count / $tickets_total_count ) * 100,2,'.','');
+            }
+            else{
+                $resolved_percent = 0;
+            }
 
             $escalated_count = Ticket::where('resolved_status',3)->count();
-            $escalated_percent = number_format(($escalated_count / $tickets_total_count ) * 100,2,'.','');
+            if($tickets_total_count != 0)
+            {
+                $escalated_percent = number_format(($escalated_count / $tickets_total_count ) * 100,2,'.','');
+            }
+            else{
+                $escalated_percent = 0;
+            }
 
             $tickets = Ticket::select(\DB::raw("COUNT(*) as count"))
                     ->whereYear('created_at', date('Y'))
