@@ -66,8 +66,7 @@ class TicketResolverNotification extends Notification
 
     public function toDatabase($notifiable){
         return [
-            'data' => $this->resolver['body'],
-            'message'=>$this->created['message']
+            'data' => $this->resolver['body']
         ];
     }
 }

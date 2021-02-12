@@ -70,8 +70,7 @@ class TicketCreatedNotification extends Notification
 
     public function toDatabase($notifiable){
         return [
-            'data' => $this->created['body'],
-            'message'=>$this->created['message']
+            'data' => $this->created['body']
         ];
     }
 }
