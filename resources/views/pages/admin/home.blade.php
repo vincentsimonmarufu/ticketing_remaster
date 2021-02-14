@@ -40,7 +40,7 @@
     <div class="container mb-4">
         <div class="row">
             @foreach ($categories as $category)
-            <div class="col-md-2">
+            <div class="col-md-2 mb-1">
                 <div class="card bg-danger card_cat">
                     <div class="card-body">
                         <h3 class="category-heading text-white">12</h3>
@@ -55,7 +55,7 @@
     </div>
     <div class="container layout-spacing">
         <div class="row">
-            <div class="col-lg-8 col-md-8 col-sm-12">
+            <div class="col-lg-8 col-md-8 col-sm-12 mb-2">
 
                 <div id="myChart"></div>
 

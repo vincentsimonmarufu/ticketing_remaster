@@ -12,34 +12,20 @@
     data-ride="carousel"
     data-interval="7000"
     >
-    <ol class="carousel-indicators">
-    <li
-        data-target="#carouselExampleIndicators"
-        data-slide-to="0"
-        class="active"
-    ></li>
-    <li
-        data-target="#carouselExampleIndicators"
-        data-slide-to="1"
-        class=""
-    ></li>
-    <li
-        data-target="#carouselExampleIndicators"
-        data-slide-to="2"
-        class=""
-    ></li>
-    </ol>
     <div class="carousel-inner" role="listbox">
     <!-- slide 1 -->
     <div
-        class="carousel-item active"
+        class="carousel-item active blur"
         style="background-image: url(app-home/img/DSC_0181.JPG)"
     >
         <div class="carousel-caption text-center">
-        <h1>Welcome To Ticketing System</h1>
-        <h3>A Laravel Project</h3>
-        <a class="btn btn-outline-light btn-lg" href="" href="#issue"
-            >Get Started</a
+        <h3>Welcome To Ticketing System</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <a class="slider-btn btn-1" href="" href="#issue"
+            >make an issue</a
+        >
+        <a class="slider-btn btn-2" href="" href="#issue"
+            >follow on issue</a
         >
         </div>
     </div>

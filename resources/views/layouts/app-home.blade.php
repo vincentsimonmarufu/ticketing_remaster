@@ -14,7 +14,7 @@
     <!-- start home -->
     
       <!-- navigation -->
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <nav class="navbar navbar-expand-md navbar-light bg-dark fixed-top">
         <div class="container">
         <a href="" class="navbar-brand"
             ><img src="{{ asset('app-home/img/top_logo_small.png')}}" alt=""
@@ -40,7 +40,7 @@
               <a href="{{ route('follow') }}" class="nav-link">Follow</a>
               </li>
               <li class="nav-item">
-              <a href="{{ route('login') }}" class="nav-link">Login</a>
+              <a href="{{ route('login') }}" class="nav-link ">Login</a>
               </li>
             </ul>
           </div>

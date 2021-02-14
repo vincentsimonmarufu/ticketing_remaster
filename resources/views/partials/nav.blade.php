@@ -18,11 +18,11 @@
             @guest
 
             @else 
-                <li class="nav-item dropdown language-dropdown">
+                {{-- <li class="nav-item dropdown language-dropdown">
                     <a href="{{ url('/') }}" class="nav-link dropdown-toggle" id="language-dropdown">
                     <span style="color:#e0e6ed !important;font-size:18.5px;">WHELSON |</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item dropdown message-dropdown">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="messageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
