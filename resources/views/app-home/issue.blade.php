@@ -57,7 +57,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="button button-submit">Submit Ticket</button>
+                            <button type="submit" class="issue-button button-submit">Submit Ticket</button>
                         </div>
                     </form>
                 </div>

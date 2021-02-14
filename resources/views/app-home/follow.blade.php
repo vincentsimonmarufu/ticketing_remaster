@@ -18,17 +18,20 @@
         
         <div class="">
             <div class="container">
-                <div class="row">
+                <div class="row ">
                     <div class="col-md-12">
                         <form action="{{ route('tick.follow')}}" method="POST" role="form">
                             {{ csrf_field() }}
-                            <div class="form-group row">
+                            <div class="form-group row justify-content-center">
                                 <div class="col-md-8">
-                                    <input type="text" name="key" class="is-control" name="name" placeholder="Full Name">
+                                    <div class="input-group mb-3">
+                                        <input type="text" name="key" class="form-control follow-control" placeholder="Full Name or Email Address " aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                          <button class="button" type="submit" id="button-addon2"><i class="fa fa-search"></i></button>
+                                        </div>
+                                      </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <button type="submit" class="button"><i class="fa fa-search" style="font-size: 18px;"></i></button>
-                                </div>
+                                
                             </div>   
                         </form>
 

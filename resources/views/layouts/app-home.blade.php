@@ -16,9 +16,9 @@
       <!-- navigation -->
       <nav class="navbar navbar-expand-md navbar-light bg-dark fixed-top">
         <div class="container">
-        <a href="" class="navbar-brand"
-            ><img src="{{ asset('app-home/img/top_logo_small.png')}}" alt=""
-          /></a>
+          <a href="" class="navbar-brand"
+              ><img src="{{ asset('app-home/img/top_logo_small.png')}}" alt=""
+            /></a>
           <button
             class="navbar-toggler"
             type="button"
@@ -31,16 +31,16 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-              <a href="{{ route('welcome') }}" class="nav-link">Home</a>
+                <a href="{{ route('welcome') }}" class="nav-link">Home</a>
               </li>
               <li class="nav-item">
-              <a href="{{ route('issue') }}" class="nav-link">Issue</a>
+                <a href="{{ route('issue') }}" class="nav-link">Issue</a>
               </li>
               <li class="nav-item">
-              <a href="{{ route('follow') }}" class="nav-link">Follow</a>
+                <a href="{{ route('follow') }}" class="nav-link">Follow</a>
               </li>
-              <li class="nav-item">
-              <a href="{{ route('login') }}" class="nav-link ">Login</a>
+              <li class="nav-item nav-login">
+                <a href="{{ route('login') }}" class="nav-link " style="color: #fff">Login</a>
               </li>
             </ul>
           </div>
@@ -51,6 +51,9 @@
     <!-- end home -->
 
       <div class="section-container">
+          <div class="container">
+            @include('partials.flash-message')
+          </div>
           @yield('content')
       </div>
 
@@ -61,8 +64,8 @@
             <div class="col-md-4 mx-auto mb-4 footer-section">
               <h6>About</h6>
               <hr class="bg-maron mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;height: 2px;">
-              <p class="mt-2">Whelson Ticketing is a web-based portal for employees to report their queries,
-                problems and suggestions as and when the need arise</p>
+              <p class="mt-2">Whelson Ticketing is a web-based portal for whelson employees to report their queries,
+                problems and suggestions as and when the need arise.</p>
             </div>
             <div class="col-md-4 mx-auto mb-4 footer-section">
               <h6>Contact</h6>
@@ -79,15 +82,15 @@
               <h6>Quick Links</h6>
               <hr class="bg-maron mb-4 mt-0 d-inline-block mx-auto" style="width: 92px;height: 2px;">
               <ul class="list-unstyled">
-                <li class="my-2 mr-2"><i class="fas fa-angle-right"></i> <a href=""> Home</a></li>
-                <li class="my-2 mr-2"><i class="fas fa-angle-right"></i> <a href=""> Issue</a></li>
-                <li class="my-2 mr-2"><i class="fas fa-angle-right"></i> <a href=""> Follow</a></li>
+                <li class="my-2 mr-2"><i class="fas fa-angle-right"></i> <a href=""> HOME</a></li>
+                <li class="my-2 mr-2"><i class="fas fa-angle-right"></i> <a href=""> ISSUE TICKET</a></li>
+                <li class="my-2 mr-2"><i class="fas fa-angle-right"></i> <a href=""> FOLLOW UP ISSUE</a></li>
               </ul>
             </div>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>©2021 Whelson GDC Transport. All rights reserved.</p>
+          <p>©2021 Whelson IT Projects. All rights reserved.</p>
         </div>
       </footer>
     </div>

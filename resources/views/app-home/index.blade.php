@@ -13,37 +13,53 @@
     data-interval="7000"
     >
     <div class="carousel-inner" role="listbox">
-    <!-- slide 1 -->
-    <div
-        class="carousel-item active blur"
-        style="background-image: url(app-home/img/DSC_0181.JPG)"
-    >
-        <div class="carousel-caption text-center">
-        <h3>Welcome To Ticketing System</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <a class="slider-btn btn-1" href="" href="#issue"
-            >make an issue</a
+        <!-- slide 1 -->
+        <div
+            class="carousel-item active blur"
+            style="background-image: url(app-home/img/DSC_0181.JPG)"
         >
-        <a class="slider-btn btn-2" href="" href="#issue"
-            >follow on issue</a
-        >
+            <div class="carousel-caption text-center">
+            <h3>Welcome To Ticketing System</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <a class="slider-btn btn-1" href="{{ route('issue') }}" href="#issue"
+                >make an issue</a
+            >
+            <a class="slider-btn btn-2" href="{{ route('follow')}}" href="#issue"
+                >follow on issue</a
+            >
+            </div>
         </div>
-    </div>
-    <!-- slide 2 -->
-    <div
-        class="carousel-item"
-        style="background-image: url(app-home/img/DSC_0180.JPG)"
-    >
-        <div class="carousel-caption text-center"></div>
-    </div>
 
-    <!-- slide 3 -->
-    <div
-        class="carousel-item"
-        style="background-image: url(app-home/img/DSC_0180.JPG)"
-    >
-        <div class="carousel-caption text-center"></div>
-    </div>
+
+        <!-- slide 2 -->
+        <div
+            class="carousel-item"
+            style="background-image: url(app-home/img/DSC_0180.JPG)"
+        >
+            <div class="carousel-caption text-center">
+                <h3>Raise your issue</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <a class="slider-btn btn-1" href="{{ route('issue') }}" href="#issue"
+                    >make an issue</a
+                >
+            </div>
+            <div class="carousel-caption text-center"></div>
+        </div>
+
+        <!-- slide 3 -->
+        <div
+            class="carousel-item"
+            style="background-image: url(app-home/img/DSC_0180.JPG)"
+        >
+        <div class="carousel-caption text-center">
+            <h3>Follow up on issue</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <a class="slider-btn btn-2" href="{{ route('follow')}}" href="#issue"
+                >follow on issue</a
+            >
+            </div>
+            <div class="carousel-caption text-center"></div>
+        </div>
     </div>
     <!-- next /prev -->
     <a
