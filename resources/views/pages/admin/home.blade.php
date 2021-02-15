@@ -219,7 +219,7 @@
 
         series: [{
 
-            name: 'New Tickets',
+            name: 'Tickets',
 
             data: users
 

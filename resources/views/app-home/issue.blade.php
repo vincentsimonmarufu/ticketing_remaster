@@ -4,10 +4,36 @@
     Issue Page
 @endsection
 
+@section('template_linked_css')
+    <style>
+        .ticket-send{
+            text-transform: none;
+            letter-spacing: 0rem;
+            width: 80%;
+            margin: 0 auto;
+        }
+        .ticket-send strong{
+            text-transform: capitalize;
+            letter-spacing: 0rem;
+        }
+    </style>
+@endsection
+
 @section('content')
 
 <section id="is-content">
+   
     <div class="is-head">
+        <div class="ticket-send">
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-dismissible fade show issue-sucess" role="alert" >
+                    <strong>Success !</strong> {{ $message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+        </div>
         <h3>Issue Ticket</h3>
     </div>
     <div class="">

@@ -51,9 +51,6 @@
     <!-- end home -->
 
       <div class="section-container">
-          <div class="container">
-            @include('partials.flash-message')
-          </div>
           @yield('content')
       </div>
 

@@ -114,7 +114,7 @@ class TicketsController extends Controller
             return redirect('tickets')->with('success','Your issue has been submitted and assigned a reference no: '.$ticket->key);
         }
 
-        return redirect('/');
+        return redirect('/issue')->with('success','Your issue has been submitted and assigned a reference no: '.$ticket->key);
     }
 
     /**
