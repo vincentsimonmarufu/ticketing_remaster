@@ -27,6 +27,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $categories = TicketCategory::all();
+        $tickets_attended = Ticket::where('resolved_status',4)->latest()->get();
 
         if ($user->isAdmin()) {
 
@@ -82,7 +83,8 @@ class UserController extends Controller
                 'unattended_count','unattended_percent',
                 'pending_count','pending_percent',
                 'resolved_count','resolved_percent',
-                'escalated_count','escalated_percent'
+                'escalated_count','escalated_percent',
+                'tickets_attended'
             ));
         }
 
@@ -107,5 +109,10 @@ class UserController extends Controller
         $tickets = Ticket::where('resolved_status',$ticket_status)->latest()->get();
 
         return view('tickets.ticket_by_status', compact('ticket_status','ticket_status_name','tickets'));
+    }
+
+    public function markAsRead(){
+        auth()->user()->unreadNotifications->markAsRead();
+        return redirect()->back();
     }
 }

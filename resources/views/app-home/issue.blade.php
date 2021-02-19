@@ -51,7 +51,7 @@
                             @enderror
                         </div>
                         <div class="form-group mb-4">
-                            <input type="text" class="is-control @error('email') is-invalid @enderror" name="email" placeholder="Email Address">
+                            <input type="email" class="is-control @error('email') is-invalid @enderror" name="email" placeholder="Email Address">
                             @error('email')
                                 <span class="help-block">
                                     <strong>{{ $message }}</strong>

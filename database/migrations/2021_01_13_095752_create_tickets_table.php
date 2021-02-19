@@ -30,6 +30,8 @@ class CreateTicketsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
 
+            //category relationship
+
             $table->timestamps();
         });
     }

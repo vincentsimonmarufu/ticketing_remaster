@@ -32,7 +32,26 @@
         font-weight: bold;
         color: red;
     }
+    .attending-head{
+        padding: 0 15px;
+        
+    }
+    .attending-head h3{
+        font-weight: lighter;
+        margin: 0;
+        font-size: 1.4rem;
+    }
+    .users-head h4{
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .users-head p{
+            font-size: 13px;
+            color: #919aa3;
+        }
 </style>
+<link rel="stylesheet" type="text/css" href="{{ asset('plugins/table/datatable/datatables.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('plugins/table/datatable/dt-global_style.css')}}">
 @endsection
 
 @section('content')
@@ -53,8 +72,8 @@
             @endforeach
         </div>
     </div>
-    <div class="container layout-spacing">
-        <div class="row">
+    <div class="container">
+        <div class="row  layout-spacing">
             <div class="col-lg-8 col-md-8 col-sm-12 mb-2">
 
                 <div id="myChart"></div>
@@ -153,7 +172,47 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-sm-12">
+
+                <div class="users-head">
+                    <h4>Tickets in Progress </h4>
+                    <p>Overview of tickets being resolved by other Users </p>
+                </div>
+        
+                <div class="widget-content widget-content-area br-6">
+                    <div class="table-responsive mb-4">
+                        <table id="default-ordering" class="table table-hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Ref: no</th>
+                                    <th>Email</th>
+                                    <th>Subject</th>
+                                    <th>Description</th>
+                                    <th>User Attending</th>
+                                    <th>Date raised</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($tickets_attended as $item)
+                                <tr>
+                                    <td>{{ $item->key }}</td>
+                                    <td>{{ $item->email}}</td>
+                                    <td>{{ $item->subject}}</td>
+                                    <td>{{ $item->description}}</td>
+                                    <td>{{ $item->resolved_by}}</td>
+                                    <td>{{ $item->created_at}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
 
 @endsection
 
@@ -255,5 +314,22 @@
     });
 
 </script>
+<script src="{{ asset('plugins/table/datatable/datatables.js')}}"></script>
+    <script>        
+        $('#default-ordering').DataTable( {
+            "oLanguage": {
+                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                "sInfo": "Showing page _PAGE_ of _PAGES_",
+                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                "sSearchPlaceholder": "Search...",
+               "sLengthMenu": "Results :  _MENU_",
+            },
+            "order": [[ 3, "desc" ]],
+            "stripeClasses": [],
+            "lengthMenu": [7, 10, 20, 50],
+            "pageLength": 7,
+            drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
+	    } );
+    </script>
 
 @endsection

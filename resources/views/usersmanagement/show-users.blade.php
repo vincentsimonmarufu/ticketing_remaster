@@ -7,17 +7,36 @@
 @section('template_linked_css')
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/table/datatable/datatables.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/table/datatable/dt-global_style.css') }}">
+    <style>
+        h5.show-heading{
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .users-head h4{
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .users-head p{
+            font-size: 13px;
+            color: #919aa3;
+            text-transform: capitalize;
+        }
+    </style>
 @endsection
 
 @section('content')
 
 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    
+    <div class="users-head">
+        <h4>Users </h4>
+        <p>Overview of System users <span style="padding-right: 10px;" class="float-right"><a href="{{ url('/users')}}"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> / Users</a></span></p>
+    </div>
     <div class="widget-content widget-content-area br-6">
         <div class="widget-header">
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                    <h5 class="ml-2" style="margin: 0;">Showing All Users</h5>
-
+                    <h5 class="ml-2 show-heading">Showing All Users <span class="float-right"><a href="{{ url('/users/create')}}" class="btn btn-light btn-rounded btn-sm" style="color:3b3f5c;font-weight:bold;">create user</a></span></h5>
                 </div>
             </div>
         </div>

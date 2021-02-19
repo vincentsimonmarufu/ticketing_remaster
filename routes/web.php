@@ -144,6 +144,7 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
     Route::post('/ticket/follow', 'App\Http\Controllers\TicketsController@followIssue')->name('ticket.follow');
     Route::put('/tickets/{id}/acknowledge','App\Http\Controllers\TicketsController@acknowledge')->name('tickets.acknowledge');
     Route::put('/tickets/{id}/escalate','App\Http\Controllers\TicketsController@escalate')->name('tickets.escalate');
+    Route::put('/tickets/{id}/attend','App\Http\Controllers\TicketsController@attend')->name('tickets.attend');
 
     // charts controller
     Route::get('chart','App\Http\Controllers\ChartController@index');
@@ -155,13 +156,7 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
     Route::get('/ticket_by_status/{id}/{name}','App\Http\Controllers\UserController@getTicketStatus')->name('ticket_by_status');
 
     // read notifications
-    Route::get('/markAsRead', function(){
-
-        auth()->user()->unreadNotifications->markAsRead();
-    
-        return redirect()->back();
-    
-    })->name('mark');
+    Route::get('/markAsRead','App\Http\Controllers\UserController@markAsRead')->name('mark');
     
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

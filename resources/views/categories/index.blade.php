@@ -12,16 +12,30 @@
         .hidden-update{
             display: none;
         }
+        .form-group label, label {
+            color: #3b3f5c;
+        }
+        .users-head h4{
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .users-head p{
+            font-size: 13px;
+            color: #919aa3;
+        }
     </style>
 @endsection
 
 @section('content')
 
 <div class="col-xl-5 col-lg-5 col-sm-12">
-    {{-- create a category --}}
+
     <div id="flRegistrationForm" class="col-lg-12 layout-spacing">
+        <div class="users-head">
+            <h4>Add New Category </h4>
+            <p>Specify the category of the tickets </p>
+        </div>
         <div class="statbox widget box box-shadow">
-            
             <div class="widget-content widget-content-area">
                 {!! Form::open(array('route' => 'categories.store', 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
                     {!! csrf_field() !!}

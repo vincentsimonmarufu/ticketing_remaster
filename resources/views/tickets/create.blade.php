@@ -11,21 +11,35 @@
     <link href="{{ asset('plugins/animate/animate.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
 
+    <style>
+        .form-group label, label {
+            color: #3b3f5c;
+        }
+        .form-control{
+            border-radius: 1px;
+        }
+        .users-head h4{
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .users-head p{
+            font-size: 13px;
+            color: #919aa3;
+        }
+    </style>
+
 @endsection
 
 @section('content')
 
     <div class="col-xl-9 col-lg-9 col-sm-12">    
         <div id="flRegistrationForm" class="col-lg-12 layout-spacing">
+            <div class="users-head">
+                <h4>Raise an issue </h4>
+                <p>Fill in the fields below to create a ticket </p>
+            </div>
             <div class="statbox widget box box-shadow">
-                <div class="widget-header">
-                    <div class="row">
-                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                            <h4 class="float-left">Issue Ticket </h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="widget-content widget-content-area" >
+                <div class="widget-content widget-content-area" style="padding: 20px;">
                     <form action="{{ route('tickets.store') }}" method="post" role="form">
                         @csrf
                         <div class="form-group mb-4">
@@ -68,7 +82,7 @@
                         </div>
                         <div class="form-group mb-4">
                             <label for="description">Give a detailed explanation of the problem</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" cols="30" rows="5" placeholder="i'nm not receiving emails in real time"></textarea>
+                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" cols="30" rows="3" placeholder="i'nm not receiving emails in real time"></textarea>
                             @error('description')
                                 <span class="help-block">
                                 <strong>{{ $message}}</strong>

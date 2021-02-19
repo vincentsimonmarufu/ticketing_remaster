@@ -91,7 +91,7 @@ class TicketCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(),[
-            'name' => 'required|unique:ticket_categories',  
+            'name' => 'required|unique:ticket_categories' 
         ]);
 
         if($validator->fails()){

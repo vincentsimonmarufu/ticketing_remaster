@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ trans('profile.templateTitle') }}
+    Edit your Profile
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
+
             <div class="col-12">
                 <div class="card border-0">
                     <div class="card-body p-0">
@@ -236,7 +235,7 @@
 
                                                     <div class="form-group row">
                                                         <div class="col-md-9 offset-md-3">
-                                                            {!! Form::button(
+                                                            {{-- {!! Form::button(
                                                                 '<i class="fa fa-fw fa-save" aria-hidden="true"></i> ' . trans('profile.submitProfileButton'),
                                                                  array(
                                                                     'class'             => 'btn btn-success disabled',
@@ -249,7 +248,8 @@
                                                                     'data-toggle'       => 'modal',
                                                                     'data-title'        => trans('modals.edit_user__modal_text_confirm_title'),
                                                                     'data-message'      => trans('modals.edit_user__modal_text_confirm_message')
-                                                            )) !!}
+                                                            )) !!} --}}
+                                                            <button type="submit">Save changes</button>
                                                         </div>
                                                     </div>
                                                 {!! Form::close() !!}
@@ -307,20 +307,21 @@
                                                             </div>
                                                             <div class="form-group row">
                                                                 <div class="col-md-9 offset-md-3">
-                                                                    {!! Form::button(
+                                                                    {{-- {!! Form::button(
                                                                         '<i class="fa fa-fw fa-save" aria-hidden="true"></i> ' . trans('profile.submitPWButton'),
                                                                          array(
                                                                             'class'             => 'btn btn-warning',
                                                                             'id'                => 'pw_save_trigger',
                                                                             'disabled'          => true,
-                                                                            'type'              => 'button',
+                                                                            'type'              => 'submit',
                                                                             'data-submit'       => trans('profile.submitButton'),
                                                                             'data-target'       => '#confirmForm',
                                                                             'data-modalClass'   => 'modal-warning',
                                                                             'data-toggle'       => 'modal',
                                                                             'data-title'        => trans('modals.edit_user__modal_text_confirm_title'),
                                                                             'data-message'      => trans('modals.edit_user__modal_text_confirm_message')
-                                                                    )) !!}
+                                                                    )) !!} --}}
+                                                                    <button type="submit">Submit changes</button>
                                                                 </div>
                                                             </div>
                                                         {!! Form::close() !!}
@@ -388,8 +389,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
     @include('modals.modal-form')
 

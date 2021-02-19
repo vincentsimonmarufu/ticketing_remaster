@@ -18,42 +18,6 @@
             @guest
 
             @else 
-                {{-- <li class="nav-item dropdown language-dropdown">
-                    <a href="{{ url('/') }}" class="nav-link dropdown-toggle" id="language-dropdown">
-                    <span style="color:#e0e6ed !important;font-size:18.5px;">WHELSON |</span>
-                    </a>
-                </li> --}}
-
-                <li class="nav-item dropdown message-dropdown">
-                    <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="messageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    </a>
-                    <div class="dropdown-menu p-0 position-absolute" aria-labelledby="messageDropdown">
-                        <div class="">
-                            <a class="dropdown-item">
-                                <div class="">
-
-                                    <div class="media">
-                                        @if (auth()->user()->unreadNotifications->count() > 0 )
-                                            <div class="media-body">
-                                                <div class="">
-                                                    <h5 class="usr-name">You have {{ auth()->user()->unreadNotifications->count() }}  unread messages </h5>
-                                                </div>
-                                            </div>
-                                        @else
-                                            <div class="media-body">
-                                                <div class="">
-                                                    <h5 class="usr-name">no new messages </h5>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    </div>
-
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </li>
 
                 <li class="nav-item dropdown notification-dropdown">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -62,7 +26,7 @@
                     <div class="dropdown-menu position-absolute" aria-labelledby="notificationDropdown">
                         <div class="notification-scroll">
 
-                            @forelse (auth()->user()->unreadNotifications as $notification)
+                            @forelse (auth()->user()->unreadNotifications->take(2) as $notification)
                                 <div class="dropdown-item">
                                     <div class="media">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -71,10 +35,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             @empty
                                 <a href="">No unread notifications</a>
                             @endforelse
-
+                            <a href="" class="text-center d-block" style="text-transform: lowercase;font-size:14px;">View All ( {{ auth()->user()->unreadNotifications->count() }} )</a>
                         </div>
                     </div>
                 </li>

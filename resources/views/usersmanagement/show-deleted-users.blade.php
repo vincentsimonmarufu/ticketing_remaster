@@ -12,21 +12,30 @@
     <link href="{{ asset('plugins/animate/animate.css')}}" rel="stylesheet" type="text/css" />
 
     <link href="{{ asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
-    {{-- <link href="{{ asset('assets/css/components/custom-modal.css')}}" rel="stylesheet" type="text/css" /> --}}
+    <style>
+        .users-head h4{
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .users-head p{
+            font-size: 13px;
+            color: #919aa3;
+        }
+    </style>
+
 
 @endsection
 
 @section('content')
 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="users-head">
+        <h4>Deleted Users </h4>
+        <p>Overview of System Deleted Users <span style="padding-right: 10px;" class="float-right">
+            <a href="{{ url('/users')}}" style="color: #919aa3"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> / users</a><a href="{{ url('/users/create')}}"> / deleted</a>
+        </span></p>
+    </div>
     <div class="widget-content widget-content-area br-6">
-        <div class="widget-header">
-            <div class="row">
-                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                    <h5 class="ml-2">Showing All Deleted Users</h5>
-
-                </div>
-            </div>
-        </div>
+        
         <div class="table-responsive mb-4 mt-4">
             <table id="zero-config" class="table table-hover" style="width:100%">
                 <thead>

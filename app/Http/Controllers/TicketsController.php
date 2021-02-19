@@ -11,6 +11,7 @@ use App\Notifications\TicketCreatedNotification;
 use App\Notifications\TicketOpenedNotification;
 use App\Notifications\TicketResolvedNotification;
 use App\Notifications\TicketResolverNotification;
+use App\Notifications\AttendingNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Models\User;
 use Keygen;
@@ -141,6 +142,13 @@ class TicketsController extends Controller
         //showing the categories
         $categories = TicketCategory::all();
         $ticket = Ticket::findOrFail($id);
+
+        if($ticket->resolved_status == 2){
+            return back()->with('warning','The ticket has already been resolved');
+        }
+        elseif($ticket->resolved_status != 4){
+            return back()->with('warning','Attend to issue first');
+        }
         return view('tickets.resolve',compact('ticket','categories'));
     }
 
@@ -169,41 +177,45 @@ class TicketsController extends Controller
                 return back()->withErrors($validator)->withInput();
             }
 
-            $ticket->resolved_how = $request->resolved_how;
-            $ticket->resolved_by = $user->name;
-            $ticket->category = $request->category;
-            $ticket->resolved_status = 2;
-            $ticket->user_id = $user->id;
-            $ticket->save();
+            if($ticket->resolved_status != 4){
+                return back()->with('warning','You cannot resolve the issue .. First Attend to issue !!');
+            }else{
+                $ticket->resolved_how = $request->resolved_how;
+                $ticket->resolved_by = $user->name;
+                $ticket->category = $request->category;
+                $ticket->resolved_status = 2;
+                $ticket->user_id = $user->id;
+                $ticket->save();
 
-            // notifying the user when a ticket is resolved
-            $resolved = [
-                'greeting' => 'Good day '.$ticket->name,
-                'subject' => 'Your issue has been resolved',
-                'body' => 'Your issue with reference no: '.$ticket->key.' has been resolved with the following comments',
-                'comment' =>'Comments: '.$ticket->resolved_how,
-                'actionText'=>'View Details',
-                'actionUrl' => 'http://127.0.0.1:8000/ticket/follow',
-                'thanks' => 'Thank you for using Whelson Ticketing System'
-            ];
+                // notifying the user when a ticket is resolved
+                $resolved = [
+                    'greeting' => 'Good day '.$ticket->name,
+                    'subject' => 'Your issue has been resolved',
+                    'body' => 'Your issue with reference no: '.$ticket->key.' has been resolved with the following comments',
+                    'comment' =>'Comments: '.$ticket->resolved_how,
+                    'actionText'=>'View Details',
+                    'actionUrl' => 'http://127.0.0.1:8000/ticket/follow',
+                    'thanks' => 'Thank you for using Whelson Ticketing System'
+                ];
 
-            Notification::route('mail',$ticket->email)
-                            ->notify(new TicketResolvedNotification($resolved));
+                Notification::route('mail',$ticket->email)
+                                ->notify(new TicketResolvedNotification($resolved));
 
-            // notifying respective admin when ticket is resolved
-            $users = User::all();
-            foreach($users as $user){
-                if($user->isAdmin()){
-                    $resolver = [
-                        'greeting' => 'Good day IT, ',
-                        'body' => $user->name.' has attended to issue with reference no '.$ticket->key,
-                        'explanation'=> 'Explanation: '.$ticket->resolved_how,
-                        'actionText' => 'View Details',
-                        'actionUrl' => 'http://127.0.0.1:8000/tickets',
-                        'thanks' => 'Thank you for using Whelson Ticketing System'
-                    ];
+                // notifying respective admin when ticket is resolved
+                $users = User::all();
+                foreach($users as $user){
+                    if($user->isAdmin()){
+                        $resolver = [
+                            'greeting' => 'Good day IT, ',
+                            'body' => $ticket->resolved_by.' has attended to issue with reference no '.$ticket->key,
+                            'explanation'=> 'Explanation: '.$ticket->resolved_how,
+                            'actionText' => 'View Details',
+                            'actionUrl' => 'http://127.0.0.1:8000/tickets',
+                            'thanks' => 'Thank you for using Whelson Ticketing System'
+                        ];
 
-                    $user->notify(new TicketResolverNotification($resolver));
+                        $user->notify(new TicketResolverNotification($resolver));
+                    }
                 }
             }
         }
@@ -237,6 +249,9 @@ class TicketsController extends Controller
         {
             return back()->with('warning','ticket has already been Acknowledged!');
         }
+        elseif($ticket->resolved_status === 4){
+            return back()->with('warning','You cannot acknowledge a ticket that is being resolved !');
+        }
         else{
             $ticket->resolved_by = $user->name;
             $ticket->resolved_status = 1;
@@ -269,10 +284,15 @@ class TicketsController extends Controller
         if($ticket->resolved_status === 2)
         {
             return back()->with('warning','Ticket has already been Resolved!');
+        }elseif($ticket->resolved_status === 4){
+            return back()->with('warning','Ticket is being resolved');
         }
         elseif($ticket->resolved_status === 3)
         {
             return back()->with('warning','Ticket has already been Escalated!');
+        }
+        elseif($ticket->resolved_status === 4){
+            return back()->with('warning','The ticket session is in progress');
         }
         else{
             $ticket->resolved_by = $user->name;
@@ -281,6 +301,68 @@ class TicketsController extends Controller
             $ticket->save();
 
             return back()->with('success','You have escalated a ticket.');
+        }
+    }
+
+    public function attend($id){
+        $user_logged = Auth::user()->name;
+        $user_id = Auth::id();
+        $ticket = Ticket::findOrFail($id);
+        $users = User::all();
+
+        if($ticket->resolved_status === 2){
+            return back()->with('warning','Ticket has already been Resolved!');
+        }
+        elseif($ticket->resolved_status === 3){
+
+            if($user_id != $ticket->user_id){
+                $ticket->resolved_by = $user_logged->name;
+                $ticket->resolved_status = 4;
+                $ticket->user_id = $user_id;
+                $ticket->save();
+
+                foreach($users as $user){
+                    if($user->isAdmin()){
+                        $attending = [
+                            'greeting' => 'Good day IT, ',
+                            'body' => $ticket->resolved_by.' is attending to ticket no: '.$ticket->key,
+                            'thanks' => 'Thank you for using Whelson Ticketing system'
+                        ];
+
+                        $user->notify(new AttendingNotification($attending));
+                    }
+                }
+
+                return back()->with('success','Your ticket session is now in progress');
+
+            }
+            else{
+                return back()->with('warning', 'You are unable to resolve the ticket !!');
+            }
+        }
+        elseif($ticket->resolved_status === 4){
+
+            return back()->with('warning','The ticket is being resolved ');
+        }
+        else{
+            $ticket->resolved_by = $user_logged;
+            $ticket->resolved_status = 4;
+            $ticket->user_id = $user_id;
+            $ticket->save();
+
+            foreach($users as $user){
+                if($user->isAdmin()){
+                    $attending = [
+                        'greeting' => 'Good day IT, ',
+                        'body' => $ticket->resolved_by.' is attending ticket no: '.$ticket->key,
+                        'thanks' => 'Thank you for using Whelson Ticketing system'
+                    ];
+
+                    $user->notify(new AttendingNotification($attending));
+                }
+            }
+
+            return back()->with('success','Ticket session is now in progress');
         }
     }
 }

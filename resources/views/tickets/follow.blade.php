@@ -8,11 +8,22 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('plugins/table/datatable/datatables.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ asset('plugins/table/datatable/dt-global_style.css')}}">
 <link href="{{ asset('assets/css/elements/search.css')}}" rel="stylesheet" type="text/css" />
+<style>
+    .users-head h4{
+            font-size: 20px;
+            font-weight: 600;
+            padding: 10px;
+        }
+</style>
 @endsection
 
 @section('content') 
+
 <div class="col-lg-8 col-md-8 col-sm-9 filtered-list-search mx-auto">
-<form class="form-inline my-2 my-lg-0 justify-content-center" action="{{ route('ticket.follow')}}" role="form" method="POST">
+    <div class="users-head">
+        <h4 class="text-center">Follow Up On Issue </h4>
+    </div>
+    <form class="form-inline my-2 my-lg-0 justify-content-center" action="{{ route('ticket.follow')}}" role="form" method="POST">
         {{ csrf_field() }}
         <div class="w-100">
             <input type="text" class="w-100 form-control product-search br-30" id="input-search" placeholder="Search using ticket key or email address" name="key" >
@@ -22,6 +33,7 @@
 </div>      
     @if (isset($tickets))
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+            
             <div class="widget-content widget-content-area br-6">
                 <div class="table-responsive mb-4">
                     <table id="zero-config" class="table table-hover" style="width:100%">

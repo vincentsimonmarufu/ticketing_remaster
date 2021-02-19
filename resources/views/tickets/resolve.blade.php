@@ -10,7 +10,16 @@
     <link href="{{ asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('plugins/animate/animate.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2.min.css')}}">
+    <style>
+        .form-group label, label {
+            color: #3b3f5c;
+        }
+        input[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {
+                cursor: not-allowed;
+                background-color: #f1f1f1 !important;
+                color: #3b3f5c;
+            }
+    </style>
 
 @endsection
 
@@ -76,24 +85,25 @@
                                 <div class="form-group mb-4">
                                     <label for="resolved_status">Ticket Status: </label>
                                     <input type="text" name="resolved_status" id="resolved_status" class="form-control" 
-                                    value="
-                                    @switch($ticket->resolved_status)
-                                        @case(0)
-                                            {{ 'Unattended' }}
-                                            @break
-                                        @case(1)
-                                            {{ 'Pending' }}
-                                            @break
-                                        @case(2)
-                                            {{ 'Resolved' }}
-                                            @break
-                                        @case(3)
-                                            {{ 'Escalated' }}
-                                            @break
-                                        @default
-                                            
-                                    @endswitch
-                                    " 
+                                    value="@switch($ticket->resolved_status)
+                                    @case(0)
+                                        {{ 'Unattended' }}
+                                        @break
+                                    @case(1)
+                                        {{ 'Pending' }}
+                                        @break
+                                    @case(2)
+                                        {{ 'Resolved' }}
+                                        @break
+                                    @case(3)
+                                        {{ 'Escalated' }}
+                                        @break
+                                    @case(4)
+                                        {{'In Progress'}}
+                                        @break
+                                    @default
+                                        
+                                @endswitch"                                    " 
                                     disabled>
                                 </div>
                             </div>
@@ -151,9 +161,6 @@
   @include('scripts.delete-modal-script')
   @include('scripts.save-modal-script')
   @include('scripts.check-changed')
-  <script src="{{ asset('assets/js/scrollspyNav.js')}}"></script>
-  <script src="{{ asset('assets/js/scrollspyNav.js') }}"></script>
-  <script src="{{ asset('plugins/select2/select2.min.js') }}"></script>
-  <script src="{{ asset('plugins/select2/custom-select2.js') }}"></script>
+
 
 @endsection

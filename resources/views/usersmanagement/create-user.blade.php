@@ -6,23 +6,40 @@
 
 @section('template_linked_css')
     <link href="{{ asset('assets/css/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
+    <style>
+        .form-group label, label {
+            color: #3b3f5c;
+        }
+        .form-control{
+            padding: .5rem 1rem;
+            border-radius: 1px;
+            font-size: 14px;
+        }
+        .users-head h4{
+                font-size: 20px;
+                font-weight: 600;
+            }
+            .users-head p{
+                font-size: 13px;
+                color: #919aa3;
+            }
+    </style>
+    
 @endsection
 
 @section('content')
 
 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-    <div class="row">
-        <div class="col-xl-8 col-lg-8 col-sm-12">
+    
             <div id="flRegistrationForm" class="col-lg-12 layout-spacing">
+                <div class="users-head mb-3">
+                    <h4>Users </h4>
+                    <p>Create New User <span style="padding-right: 10px;" class="float-right">
+                        <a href="{{ url('/users')}}" style="color: #919aa3;"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> / Users </a><a href="{{ url('/users/create')}}">/ Create User</a>
+                    </span></p>
+                </div>
                 <div class="statbox widget box box-shadow">
-                    <div class="widget-header">                                
-                        <div class="row">
-                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h4>{!! trans('usersmanagement.create-new-user') !!}</h4>
-                            </div>                                                                        
-                        </div>
-                    </div>
-                    <div class="widget-content widget-content-area">
+                    <div class="widget-content widget-content-area" style="padding: 20px;">
                         {!! Form::open(array('route' => 'users.store', 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
                             {!! csrf_field() !!}
                             <div class="form-group mb-4" {{ $errors->has('name') ? ' has-error ' : '' }}>
@@ -90,19 +107,16 @@
                             </div>
                             <small id="emailHelp2" class="form-text text-muted">*Required Fields</small>
                             
-                            <div class="row">
-                                <div class="col-12 col-sm-6 text-center">
-                                    {!! Form::button(trans('forms.create_user_button_text'), array('class' => 'btn btn-outline-primary btn-rounded btn-block margin-bottom-1 mt-3 mb-2 btn-save','type' => 'submit' )) !!}
-
-                                </div>
+                            <div class="">
+                                
+                                    {!! Form::button(trans('forms.create_user_button_text'), array('class' => 'btn btn-outline-primary btn-rounded margin-bottom-1 mt-3 mb-2 btn-save','type' => 'submit' )) !!}
+                                
                             </div>
                         {!! Form::close() !!}
 
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 </div>
     
 @endsection

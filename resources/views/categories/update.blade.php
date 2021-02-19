@@ -8,22 +8,8 @@
 
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     <link href="{{ asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
-
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
     <link href="{{ asset('plugins/animate/animate.css')}}" rel="stylesheet" type="text/css" />
-    <!-- END PAGE LEVEL PLUGINS -->
-
-    <!--  BEGIN CUSTOM STYLE FILE  -->
-    <link href="{{ asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
-    {{-- <link href="{{ asset('assets/css/components/custom-modal.css')}}" rel="stylesheet" type="text/css" /> --}}
-    <!--  END CUSTOM STYLE FILE  -->
-
-    <style type="text/css">
-
-        .pw-change-container {
-            display: none;
-        }
-    </style>
+    <link href="{{ asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />    
 @endsection
 
 @section('content')
@@ -46,12 +32,12 @@
                     {!! csrf_field() !!}
                     <div class="form-group mb-4" >
                         <label for="cat_name">Category Name</label>
-                        <input type="text" class="form-control @error('name') is-invalid @error" value="{{ $category->name }}" id="cat-name" name="name">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{ $category->name }}" id="cat-name" name="name">
                         @error('name')
                         <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>
-                        @error   
+                        @enderror   
                     </div> 
                     <button type="button" data-toggle = 'modal' data-target = '#confirmSave' data-title = 'Save Changes' data-message = 'Are you sure you want to save changes' class="btn btn-primary mb-2 mr-2 btn-rounded mt-3">Update Category</button>
                     {!! Form::close() !!}
