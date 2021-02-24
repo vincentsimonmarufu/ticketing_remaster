@@ -7,11 +7,7 @@
 @section('template_linked_css')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/widgets/modules-widgets.css')}}"> 
 <style>
-    .category-heading{
-        margin: 0;
-        padding: 0;
-        letter-spacing: .3rem
-    }
+
     .more{
         padding-bottom: 0;
         margin-bottom: 0;
@@ -62,10 +58,9 @@
             <div class="col-md-2 mb-1">
                 <div class="card bg-danger card_cat">
                     <div class="card-body">
-                        <h3 class="category-heading text-white">12</h3>
                         <p class="text-white more">{{ $category->name }}</p>
                         <hr class="cat-divider">
-                        <p class="more text-white text-center"><a href="{{ url('/ticket_by_cat/ ' . $category->id . '/' . $category->name ) }}">More details</a></p>
+                        <p class="more text-white "><a href="{{ url('/ticket_by_cat/ ' . $category->id . '/' . $category->name ) }}">More details</a></p>
                     </div>
                 </div>
             </div>

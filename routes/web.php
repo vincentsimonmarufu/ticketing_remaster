@@ -22,6 +22,7 @@ Route::group(['middleware' => ['web', 'checkblocked']], function () {
     Route::get('/follow', 'App\Http\Controllers\WelcomeController@follow')->name('follow');
     Route::post('/follow', 'App\Http\Controllers\WelcomeController@followIssue');
     Route::get('/terms', 'App\Http\Controllers\TermsController@terms')->name('terms');
+    Route::post('/comments','App\Http\Controllers\CommentsController@store')->name('comments');
     Route::resource('tickets', 'App\Http\Controllers\TicketsController');
 });
 
@@ -157,6 +158,9 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
 
     // read notifications
     Route::get('/markAsRead','App\Http\Controllers\UserController@markAsRead')->name('mark');
+
+    // comments
+    Route::get('/comments','App\Http\Controllers\CommentsController@index');
     
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

@@ -13,6 +13,14 @@
             margin-left: 10px;
             padding: 0px;
         }
+        .users-head h4{
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .users-head p{
+            font-size: 13px;
+            color: #919aa3;
+        }
     </style>
 @endsection
 
@@ -20,6 +28,12 @@
 
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
 
+        <div class="users-head">
+            <h4>Generate A System Report </h4>
+            <p>Generate a system report based on status of the tickets. <span style="padding-right: 10px;" class="float-right">
+                <a href="{{ url('/reports')}}" style=" font-size: 13px;"> / Reports</a>
+            </span></p>
+        </div>
 
         <div class="widget-content widget-content-area br-6 mt-3">
 
@@ -122,7 +136,11 @@
                             </td>
                             <td>{{ $report->created_at }}</td>
                             <td>{{ $report->updated_at }}</td>
-                            <td>{{ $report->resolved_by }}</td>
+                            <td>@if ($report->resolved_status === 0)
+                                {{ 'Not Yet' }}
+                                @else
+                                {{ $report->resolved_by }}
+                              @endif</td>
                         </tr>
                     @endforeach
                     </tbody>

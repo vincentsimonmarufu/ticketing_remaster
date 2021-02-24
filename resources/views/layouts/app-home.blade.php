@@ -103,7 +103,7 @@
         </div>
       </div>
       <div class="footer-end">
-        <p>&copy;2021 Whelson IT Projects. All rights reserved.</p>
+        <p>&copy; <?php echo date('Y') ?> Whelson IT Projects. All rights reserved.</p>
       </div>
     </footer>
    

@@ -87,28 +87,47 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-xl-9 col-md-9 col-sm-12">
-            <form action="">
+            <form action="{{ url('/comments')}}" method="POST" role="form">
+             @csrf
+
               <div class="form-group row">
                 <label for="name" class="col-sm-3">name</label>
                <div class="col-sm-9">
-                <input type="text" class="comment-control" name="name" id="name">
+                <input type="text" class="comment-control @error('name') is-invalid @enderror" name="name" id="name">
+                @error('name')
+                <span class="help-block">
+                  <strong>{{ $message}}</strong>
+                </span>
+                @enderror
                </div>
               </div>
+
               <div class="form-group row">
                 <label class="col-sm-3" for="email">email</label>
                 <div class="col-sm-9">
-                  <input type="email" class="comment-control" name="email" id="email">
+                  <input type="email" class="comment-control @error('email') is-invalid @enderror" name="email" id="email">
+                  @error('email')
+                    <span class="help-block">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
               </div>
+
               <div class="form-group row">
                 <label for="message" class="col-sm-3">message</label>
                 <div class="col-sm-9">
-                  <textarea name="message" id="message" class="comment-control" cols="30" rows="4"></textarea>
+                  <textarea name="message" id="message" class="comment-control @error('message') is-invalid @enderror" cols="30" rows="4"></textarea>
+                  @error('message')
+                    <strong>{{ $message }}</strong>
+                  @enderror
                 </div>
               </div>
+
               <div class="form-group">
-                <button class="slider-btn slider-1">Submit Request</button>
+                <button type="submit" class="slider-btn slider-1">Submit Request</button>
               </div>
+
             </form>
         </div>
       </div>

@@ -76,37 +76,46 @@ class TicketsController extends Controller
         ]);
         $ticket->save();
 
-        // notifying the user when a ticket is created
-        $open = [
-            'greeting' => 'Good day '.$ticket->name,
-            'body' => 'Your issue has been submitted with reference no: '.$ticket->key.' , You will be notified once it is resolved',
-            'actionText' => 'Follow Up on Issue',
-            'actionUrl' => 'http://127.0.0.1:8000/ticket/follow',
-            'thanks' => 'Thank you for using Whelson Ticketing System'
-        ];
+        // try and catch
+        if($ticket->save()){
+            try{
 
-        Notification::route('mail',$ticket->email)
-                        ->notify(new TicketOpenedNotification($open));
-
-        // notifying respective admins
-        $users = User::all();
-        
-        foreach($users as $user){
-            if($user->isAdmin()){
-                $created = [
-                    'greeting'=> 'Good day IT, '.$ticket->name.' has opened a ticket.',
-                    'body'=>$ticket->name.' has opened ticket with reference no: '.$ticket->key,
-                    'name'=>'Name: '.$ticket->name,
-                    'email'=>'Email: '.$ticket->email,
-                    'contact'=>'Contactable'.$ticket->contactable,
-                    'subject'=>'Subject: '.$ticket->subject,
-                    'description'=>'Description: '.$ticket->description,
-                    'actionText'=>'View Details',
-                    'actionUrl'=>'http://127.0.0.1:8000/tickets',
-                    'thanks'=>'Thank you for using Whelson Ticketing System '
-
+                // notifying the user when a ticket is created
+                $open = [
+                    'greeting' => 'Good day '.$ticket->name,
+                    'body' => 'Your issue has been submitted with reference no: '.$ticket->key.' , You will be notified once it is resolved',
+                    'actionText' => 'Follow Up on Issue',
+                    'actionUrl' => 'http://127.0.0.1:8000/ticket/follow',
+                    'thanks' => 'Thank you for using Whelson Ticketing System'
                 ];
-                $user->notify(new TicketCreatedNotification($created));
+
+                Notification::route('mail',$ticket->email)
+                            ->notify(new TicketOpenedNotification($open));
+
+                // notifying respective admins
+                $users = User::all();
+                
+                foreach($users as $user){
+                    if($user->isAdmin()){
+                        $created = [
+                            'greeting'=> 'Good day IT, '.$ticket->name.' has opened a ticket.',
+                            'body'=>$ticket->name.' has opened ticket with reference no: '.$ticket->key,
+                            'name'=>'Name: '.$ticket->name,
+                            'email'=>'Email: '.$ticket->email,
+                            'contact'=>'Contactable'.$ticket->contactable,
+                            'subject'=>'Subject: '.$ticket->subject,
+                            'description'=>'Description: '.$ticket->description,
+                            'actionText'=>'View Details',
+                            'actionUrl'=>'http://127.0.0.1:8000/tickets',
+                            'thanks'=>'Thank you for using Whelson Ticketing System '
+
+                        ];
+                        $user->notify(new TicketCreatedNotification($created));
+                    }
+                }
+                
+            }catch(\Exception $except){
+                echo 'Error - '.$except;
             }
         }
 
@@ -187,7 +196,10 @@ class TicketsController extends Controller
                 $ticket->user_id = $user->id;
                 $ticket->save();
 
-                // notifying the user when a ticket is resolved
+                // try catch for emails
+                if($ticket->save()){
+                    try{
+                        // notifying the user when a ticket is resolved
                 $resolved = [
                     'greeting' => 'Good day '.$ticket->name,
                     'subject' => 'Your issue has been resolved',
@@ -215,6 +227,11 @@ class TicketsController extends Controller
                         ];
 
                         $user->notify(new TicketResolverNotification($resolver));
+                    }
+                }
+
+                    }catch(\Exception $except){
+                        echo 'Error - '.$except;
                     }
                 }
             }
@@ -322,15 +339,24 @@ class TicketsController extends Controller
                 $ticket->user_id = $user_id;
                 $ticket->save();
 
-                foreach($users as $user){
-                    if($user->isAdmin()){
-                        $attending = [
-                            'greeting' => 'Good day IT, ',
-                            'body' => $ticket->resolved_by.' is attending to ticket no: '.$ticket->key,
-                            'thanks' => 'Thank you for using Whelson Ticketing system'
-                        ];
+                // try catch
+                if($ticket->save()){
+                    try{
 
-                        $user->notify(new AttendingNotification($attending));
+                        foreach($users as $user){
+                            if($user->isAdmin()){
+                                $attending = [
+                                    'greeting' => 'Good day IT, ',
+                                    'body' => $ticket->resolved_by.' is attending to ticket no: '.$ticket->key,
+                                    'thanks' => 'Thank you for using Whelson Ticketing system'
+                                ];
+        
+                                $user->notify(new AttendingNotification($attending));
+                            }
+                        }
+
+                    }catch(\Exception $except){
+                        echo 'Error - '.$except;
                     }
                 }
 
@@ -351,15 +377,24 @@ class TicketsController extends Controller
             $ticket->user_id = $user_id;
             $ticket->save();
 
-            foreach($users as $user){
-                if($user->isAdmin()){
-                    $attending = [
-                        'greeting' => 'Good day IT, ',
-                        'body' => $ticket->resolved_by.' is attending ticket no: '.$ticket->key,
-                        'thanks' => 'Thank you for using Whelson Ticketing system'
-                    ];
+            // try catch
+            if($ticket->save()){
+                try{
 
-                    $user->notify(new AttendingNotification($attending));
+                    foreach($users as $user){
+                        if($user->isAdmin()){
+                            $attending = [
+                                'greeting' => 'Good day IT, ',
+                                'body' => $ticket->resolved_by.' is attending ticket no: '.$ticket->key,
+                                'thanks' => 'Thank you for using Whelson Ticketing system'
+                            ];
+        
+                            $user->notify(new AttendingNotification($attending));
+                        }
+                    }
+
+                }catch(\Exception $except){
+                    echo 'Error - '.$except;
                 }
             }
 
