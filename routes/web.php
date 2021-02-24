@@ -20,7 +20,7 @@ Route::group(['middleware' => ['web', 'checkblocked']], function () {
     Route::get('/', 'App\Http\Controllers\WelcomeController@welcome')->name('welcome');
     Route::get('/issue', 'App\Http\Controllers\WelcomeController@issue')->name('issue');
     Route::get('/follow', 'App\Http\Controllers\WelcomeController@follow')->name('follow');
-    Route::post('/follow', 'App\Http\Controllers\WelcomeController@followIssue')->name('tick.follow');
+    Route::post('/follow', 'App\Http\Controllers\WelcomeController@followIssue');
     Route::get('/terms', 'App\Http\Controllers\TermsController@terms')->name('terms');
     Route::resource('tickets', 'App\Http\Controllers\TicketsController');
 });

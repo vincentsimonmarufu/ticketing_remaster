@@ -13,23 +13,26 @@ class WelcomeController extends Controller
      */
     public function welcome()
     {
-        return view('app-home.index');
+        return view('visitor.index');
     }
 
     public function issue(){
-        return view('app-home.issue');
+        return view('visitor.create');
     }
 
     public function follow(){
-        return view('app-home.follow');
+        return view('visitor.follow');
     }
 
     public function followIssue(Request $request){
+
         $ticket_key = $_POST['key'];
+        
         $tickets = Ticket::where('key',$ticket_key)
             ->orWhere('email',$ticket_key)
             ->get();
-        return view('app-home.follow',compact('tickets'));
+            
+        return view('visitor.follow',compact('tickets'));
 
     }
 }

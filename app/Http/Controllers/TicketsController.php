@@ -267,6 +267,7 @@ class TicketsController extends Controller
     }
 
     public function followIssue(Request $request){
+        
         $ticket_key = $_POST['key'];
         $tickets = Ticket::where('key',$ticket_key)
             ->orWhere('email',$ticket_key)

@@ -8,14 +8,25 @@
 			@Import	Mixins
 	===============================
 */
+.widget-content-area {
+  -webkit-box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.0901961), 0 1px 20px 0 rgba(0, 0, 0, 0.08), 0px 1px 11px 0px rgba(0, 0, 0, 0.06);
+  -moz-box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.0901961), 0 1px 20px 0 rgba(0, 0, 0, 0.08), 0px 1px 11px 0px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.0901961), 0 1px 20px 0 rgba(0, 0, 0, 0.08), 0px 1px 11px 0px rgba(0, 0, 0, 0.06); }
+
+.no-content:before, .no-content:after {
+  display: none !important; }
+
+.new-control.new-checkbox .new-control-indicator {
+  top: 0;
+  height: 22px;
+  width: 22px;
+  border-radius: 50%; }
 
 .table > thead {
-  
   border-top: 1px solid #e0e6ed;
   border-bottom: 1px solid #e0e6ed; }
 
 table.dataTable {
-  
   border-collapse: separate;
   border-spacing: 0 5px;
   margin-top: 8px !important;
@@ -52,7 +63,7 @@ table.dataTable {
   border-bottom: 1px solid #e0e6ed; }
 
 .table > thead > tr > th {
-  
+  color: #1a1a1a;
   font-weight: 700;
   font-size: 13px;
   border: none;
@@ -61,7 +72,7 @@ table.dataTable {
 
 .table > tbody > tr > td {
   border: none;
-  color: #888ea8;
+  color: rgba(0,0,0,.7);
   font-size: 13px;
   letter-spacing: 1px; }
 
@@ -83,7 +94,7 @@ table.dataTable {
 div.dataTables_wrapper div.dataTables_info {
   padding-top: 0.85em;
   white-space: normal;
-  color: #1b55e2;
+  color: #1a1a1a;
   font-weight: 600;
   border: 1px solid #e0e6ed;
   display: inline-block;
