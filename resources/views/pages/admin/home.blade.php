@@ -186,6 +186,7 @@
                                     <th>Description</th>
                                     <th>User Attending</th>
                                     <th>Date raised</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -197,6 +198,21 @@
                                     <td>{{ $item->description}}</td>
                                     <td>{{ $item->resolved_by}}</td>
                                     <td>{{ $item->created_at}}</td>
+                                    <td style="white-space: nowrap;">
+                        
+                                        <a href="{{ route('tickets.edit', $item->id) }}" data-toggle="tooltip" title="Resolve" class=" d-inline text-success">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                                        </a>
+            
+                                        <form class="d-inline" action="{{ route('tickets.escalate', $item->id) }}" method="POST" >
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="text-danger" data-toggle="tooltip" title="Escalate" style="border: none;background: #fff;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                                            </button>
+                                        </form>
+            
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

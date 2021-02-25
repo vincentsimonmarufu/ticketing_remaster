@@ -88,7 +88,11 @@
                                         
                                 @endswitch
                         </td>
-                        <td>{{ $ticket->resolved_by }}</td>
+                        <td class="text-center">@if ($ticket->resolved_status === 0)
+                            {{ 'Not Yet' }}
+                            @else
+                            {{ $ticket->resolved_by }}
+                          @endif</td>
                         <td style="white-space: nowrap;">
                             <form class="d-inline" action="{{ route('tickets.attend', $ticket->id) }}" method="POST" >
                                 @csrf

@@ -21,7 +21,7 @@
               <form action="{{ url('/follow')}}" method="POST" role="form">
                 {{ csrf_field() }}
                 <div class="input-group mb-3">
-                  <input type="text" name="key" class="form-control follow-control" placeholder="Full Name or Email Address " aria-label="Recipient's username" aria-describedby="button-addon2">
+                  <input type="text" name="key" class="form-control follow-control" placeholder="Enter ticket reference number or Email Address " aria-label="Recipient's username" aria-describedby="button-addon2">
                   <div class="input-group-append">
                     <button class="button follow-btn" type="submit" id="button-addon2"><i class="fa fa-search"></i></button>
                   </div>
